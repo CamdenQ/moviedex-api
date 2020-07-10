@@ -58,9 +58,11 @@ app.route('/movie').get((req, res) => {
 
   // filter our movies by avg_vote if avg_vote query param is present
   if (req.query.avg_vote) {
-    response = response.filter((movie) => {
-      movie.avg_vote >= req.query.avg_vote;
-    });
+    response = response.filter(
+      (movie) =>
+        // converting to numbers to compare value
+        Number(movie.avg_vote) >= Number(req.query.avg_vote)
+    );
   }
 
   res.json(response);
